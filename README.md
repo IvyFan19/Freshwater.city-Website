@@ -1,6 +1,8 @@
-# freshwater.city - Real Estate - Browse | Buy | Rent | Sell
+# Freshwater.city - Real Estate - Browse | Buy | Rent | Sell
 Course: CSc848 - Software Development
+
 Date: 2020/06/01 - 2020/08/07
+
 Final Version: https://freshwater.city/
 
 ## Goal
