@@ -1,13 +1,18 @@
-# csc648 Repository
+# freshwater.city - Real Estate - Browse | Buy | Rent | Sell
+Course: CSc848 - Software Development
+Date: 2020/06/01 - 2020/08/07
+Final Version: https://freshwater.city/
 
-## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
+## Goal
+Create a start-up comprising of a team of 7 students to develop a web-based service for allowing SFSU students and faculty to buy, sell and rent the local housing close to SFSU. 
+## Requirements
+This site is to be set such that anybody can post housing for sale or rent (houses, apartments) but actual renting and buying can only be done by SFSU students and faculty. 
 
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repository. All that needs to change is the NN to your respective team number. Team numbers whose value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repository as well. Teams with incorrectly name repository will have points deducted from their milestone 0 grades.
-      - Please follow the naming convention assigned by your instructor.
+Functions envisioned include: 
 
-1. PLEASE REMOVE THE USERNAME FROM THE REPOSITORY NAME!!!
+a) allow anybody to post hosing for rent or sale and to get messages only from SFSU students or faculty; 
 
-2. Add ALL members of your team to this repository. For it to count, they must ACCEPT the invite.
+b) allow any user to search and browse items for sale/share but only SFSU faculty or students to contact the seller via messaging; 
 
-## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
+c) The site will also have administrator who will be required to approve each media item before it can go live, as well as to delete inappropriate items or users. Other functions may be added by student teams. 
+
