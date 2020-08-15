@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <title>SF State of Code</title>
+
+  <!-- Required Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+  <link type="text/css" rel="stylesheet" href="../../static/css/post.css" />
+
+  <!-- Required scripts -->
+  <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async
+    defer> </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174684984-1"></script>
+  <script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-174684984-1');
+  </script>
+
+  <!-- for validations -->
+  <script src="https://unpkg.com/vee-validate@<3.0.0"></script>
+
+  <style>
+    .col-md {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+
+    .container1 {
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+    }
+  </style>
+</head>
+
+{% extends 'navbar.html' %}
+<body>
+{% block content %}
+  <!-- Jinja Macros -->
+  {% macro capitalize(text) %}
+  {{ text[0]|upper}}{{text[1:] }}
+  {% endmacro %}
+
+  <div id="app">
+    <div style="width: 80%; margin: auto;">
+      <!-- Jumbotron Container -->
+      {% if current_user.is_authenticated %}
+      <b-container fluid class="container1">
+        <b-form ref="form" @submit.stop.prevent="onSubmit" enctype="multipart/form-data" action="/form_data" method="POST">
+          <h1 style="margin-top: 30px;"><b>Create Listing</b></h1>
+
+          <hr style="border: 0.5px solid #e7e7e7">
+
+          <div class="card border-0">
+            <b-col sm="6">
+              <div>
+                <b-form-group id="address-input-group">
+                  <p>
+                  <h5>
+                    <label class="font-weight-bold pt-0" style="text-align: left;">
+                      Listing Type
+                      <b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8">
+                        </b-icon>
+                    </label>
+                  </h5>
+
+                  </p>
+                  <b-form-radio-group name="sellOrRent" style="margin-right: 0px;" id="btn-radios-1" v-model="selected"
+                    :options="listingOptions" buttons button-variant="outline-primary" name="rentOrSell"
+                    required>
+                  </b-form-radio-group>
+
+                </b-form-group>
+              </div>
+            </b-col>
+          </div>
+
+
+          <hr style="border: 0.5px solid #e7e7e7">
+          <div class="card border-0">
+            <b-col sm="6">
+              <div>
+                <b-form-group id="address-input-group" label="Home Address" label-size="lg" style="text-align: left;"
+                  label-class="font-weight-bold pt-0">
+
+                  <b-form-group id="street">
+                    <p>
+                    <h6>
+                      <b>Address<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk</b>
+
+                      </b-icon>
+                    </h6>
+                    </p>
+                    <b-form-input name="street_address" id="street-input" placeholder="1600 Holloway Ave" required v-validate="'max:40'"
+                      :state="validateState('street')"></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group id="city">
+                    <p>
+                    <h6>
+                      <b>City<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+
+                      </b-icon>
+                    </h6>
+                    </p>
+                    <b-form-input name="city" id="city-input" name="city" placeholder="San Francisco" required></b-form-input>
+                  </b-form-group>
+
+                  <!-- <b-form-group id="state">
+                    <p>
+                    <h6>
+                      <b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk><b>
+                        State</b>
+
+                      </b-icon>
+                    </h6>
+                    </p>
+                    <b-form-input id="state-input" placeholder="California" required></b-form-input>
+                  </b-form-group> -->
+
+                  <b-form-group id="zip-code">
+                    <p>
+                    <h6>
+                      <b>Zip Code<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+
+                      </b-icon>
+                    </h6>
+                    </p>
+                    <b-form-input name="postalCode" id="zip-code-input" placeholder="94132" type="number" required></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group id="distance_to_SFSU">
+                    <p>
+                    <h6>
+                      <b>Distance To SFSU<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                    </h6>
+                    </p>
+                    <b-input-group append="miles">
+                      <b-form-input id="distance_to_SFSU-input" name="distance_to_SFSU" placeholder="1" required>
+                      </b-form-input>
+                    </b-input-group>
+                  </b-form-group>
+
+                </b-form-group>
+              </div>
+            </b-col>
+          </div>
+
+          <hr style="border: 0.5px solid #e7e7e7; margin-top: 5px">
+
+          <div class="card border-0">
+            <b-col sm="6">
+              <div>
+                <b-form-group id="property-input-group" label="Property Details" label-size="lg"
+                  style="text-align: left;" label-class="font-weight-bold pt-0">
+
+                  <b-form-group id="title">
+                    <p>
+                    <h6>
+                      <b>
+                        Post Title<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                    </h6>
+                    </p>
+                    <b-form-input name="title" id="title-input" required></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group id="home-type">
+                    <p>
+                    <h6>
+                      <b>Home Type<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                    </h6>
+                    </p>
+                    <b-form-select name="houseType" id="home-type-input" required>
+                      <b-form-select-option value="House">House</b-form-select-option>
+                      <b-form-select-option value="Apartment">Apartment</b-form-select-option>
+                      <b-form-select-option value="Room">Room</b-form-select-option>
+                    </b-form-select>
+                  </b-form-group>
+
+                  <b-form-group id="sq-feet">
+                    <p>
+                    <h6>
+                      <b>Square Feet<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+
+                    </h6>
+                    </p>
+                    <b-input-group append="sq. ft.">
+                      <b-form-input name="sqft" id="sq-feet-input" type="number" required></b-form-input>
+                    </b-input-group>
+                  </b-form-group>
+
+                  <b-form-group id="num-beds">
+                    <p>
+                    <h6>
+                      <b># of Beds<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                    </h6>
+                    </p>
+                    <b-form-input name="bedroomNum" id="num-beds-input" type="number" required></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group id="price">
+                    <p>
+                    <h6>
+                      <b>Price<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                    </h6>
+                    </p>
+                    <b-input-group prepend="$">
+                      <b-form-input name="price" id="price-input" type="number" required></b-form-input>
+                    </b-input-group>
+                  </b-form-group>
+
+                  <b-form-group id="num-baths">
+                    <p>
+                    <h6>
+                      <b># of Baths<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+    
+                    </h6>
+                    </p>
+                    <b-form-input name="bathroomNum" id="num-baths-input" type="number" required></b-form-input>
+                  </b-form-group>
+                </b-form-group>
+              </div>
+            </b-col>
+            <b-col sm="12">
+              <b-form-group id="property-description" label="Property Description"
+                label-for="property-description-input">
+                <b-form-textarea name="description" id="property-description-input" rows="4" max-rows="8"></b-form-textarea>
+              </b-form-group>
+            </b-col>
+            <b-col sm="6">
+              <b-form-group id="photo-upload">
+                <p>
+                <h6>
+                  <b>Upload Listing Images<b-icon-asterisk font-scale="0.5" variant="danger" shift-v="8"></b-icon-asterisk></b>
+                </h6>
+                </p>
+                <b-form-file id="photo-upload-input" multiple="true" name="image1" required></b-form-file>
+              </b-form-group>
+            </b-col>
+
+          </div>
+
+          <div class="card border-0">
+            <div>
+              <div class="row justify-content-center" style="margin-bottom: 40px; margin-top: 50px;">
+                <b-button href="/" variant="secondary" style="float: right;" size="lg">Cancel
+                </b-button>
+                <b-button style="margin-left:80px" type="submit" variant="success"
+                  style="float: right;" size="lg" formmethod="POST">Submit</b-button>
+              </div>
+
+
+            </div>
+          </div>
+
+
+        </b-form>
+      </b-container>
+	{% else %}
+    <h4 style="text-align: center; margin-top: 40px"> Thank you for your interest in creating listing, 
+      but Please login to start creating listing.</h4>
+	{% endif %}
+  </div> <!-- end app div -->
+
+{% endblock %}
+{% block script %}
+
+  <script type="application/javascript">
+    Vue.use(VeeValidate, {
+      inject: true,
+      fieldsBagName: "veeFields",
+      errorBagName: "veeErrors"
+    });
+    window.app = new Vue({
+      el: "#app",
+      delimiters: ['[[', ']]'],
+      components: {
+        'vee-validate': VeeValidate
+      },
+      data: {
+        name: '',
+        form: {
+          name: '',
+          lastname: '',
+          address: '',
+          date: '',
+          street: '',
+          area: '',
+          price: '',
+          email: '',
+          email2: '',
+          options: ['High School Diploma', 'Associates Degree', 'Bachelors Degree', 'Masters Degree', 'PhD', 'MPH', 'JD', 'MD'],
+          checked: [],
+          verify: '',
+
+        },
+        listingOptions: [
+          { text: 'For Rent', value: 'rent' },
+          { text: 'For Sale', value: 'sale' },
+        ],
+        show: true,
+        picked: 0,
+        selected_home: null,
+        selected_beds: null,
+        selected_baths: null
+      },
+      methods: {
+        onSubmit() {
+          this.$validator.validateAll().then(result => {
+            if (!result) {
+              alert("Not complete")
+              return;
+            }
+
+            alert("Your posting may take up to 24 hours to be approved. Thank you for posting with Freshwater Rentals!");
+            this.$refs.form.submit();
+          });
+        },
+        validateState(ref) {
+          if (
+            this.veeFields[ref] &&
+            (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+          ) {
+            return !this.veeErrors.has(ref);
+          }
+          return null;
+        },
+
+        onVerify: function (response) {
+          this.form.verify = response
+          console.log('Verify: ' + response)
+        },
+        onExpired: function () {
+          console.log('Expired')
+        },
+        resetRecaptcha() {
+          this.$refs.recaptcha.reset() // Direct call reset method
+        },
+        send_json(evt) {
+          return JSON.stringify(this.form)
+        },
+
+      },
+    })
+  </script>
+{% endblock %}
+</body>
+
+</html>

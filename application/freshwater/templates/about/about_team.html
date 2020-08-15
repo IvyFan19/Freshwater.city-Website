@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <title>SF State of Code</title>
+
+  <!-- Required Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/about_team.css">
+
+  <!-- Required scripts -->
+  <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <script src="https://unpkg.com/vue-router"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174684984-1"></script>
+  <script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-174684984-1');
+  </script>
+
+
+</head>
+{% extends 'navbar.html' %}
+
+<body>
+{% block content %}
+  <!-- Jinja Macros -->
+  {% macro capitalize(text) %}
+    {{ text[0]|upper}}{{text[1:] }}
+  {% endmacro %}
+
+  <div id="app">
+    <!-- Message Container -->
+    <div class="about">
+    <div class="page_title" >
+            <h1> Software Engineering class SFSU - Summer 2020 </h1>
+            <h2> Team - 01 </h2>
+            <h1>Who Are We</h1>
+
+    </div>
+
+    <div class="cards">
+    <div class="team_intro">
+        <p>
+            We are a small team of web developers and designers based in San Francisco State University. We are specialized in Python, JavaScript and MySQL.
+        </p>
+    </div>
+
+    <div class="row" style="margin-left: 5%">
+        <div class="column">
+            <div class="card">
+                <img src="/static/images/about/luis.jpg" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="Luis">
+                <div class="container">
+                    <h4 center>
+                      <a href = "/profile/luis"> Luis Chumpitaz </a>
+                    </h4>
+                    <p class="title">Team Lead</p>
+                    <a href="https://github.com/luisdiaz1997" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/luis-chumpitaz-diaz-b98167140/" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:lchumpit@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+            
+            <div class="card">
+                <img src="/static/images/about/garrett.jpeg" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="Garrett">
+                <div class="container">
+			<h4 center><a href="/profile/garrett">Garrett</a></h4>
+                    <p class="title">Database &amp; Backend</p>
+                    <a href="https://github.com/enigmatized" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="mailto:gpeuse@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/static/images/about/nathan.png" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="Nathan Hildum">
+                <div class="container">
+                    <h4 center><a href="/profile/nathan">Nathan Hildum</a></h4>
+                    <p class="title">Backend, Discord Manager, &amp; Documentation Editor</p>
+                    <a href="https://github.com/Natedude" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/nate-hildum-a6b97428/" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:nhildum@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="/static/images/about/zachary.jpg" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="Zachary Ma">
+                <div class="container">
+			<h4 center><a href="/profile/zachary"> Zachary</a></h4>
+                    <p class="title">Backend, SQL &amp; Member</p>
+                    <a href="https://github.com/Area-Turtle" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/zachary-ma/" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:zma2@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="/static/images/about/gouri.jpeg" alt="Gouri" style= "object-fit: contain; width: 180px; height: 180px;">
+                <div class="container">
+			<h4 center><a href="/profile/gouri">Gouri Jamakhandi</a></h4>
+                    <p class="title">Front End Developer</p>
+                    <a href="https://github.com/gourijamakhandi" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/gourijamakhandi/" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:gjamakhandi@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="/static/images/about/xinwei.jpeg" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="Xinwei">
+                <div class="container">
+                    <h4 center><a href="/profile/xinwei">Xinwei Fan</a></h4>
+                    <p class="title">Front End Developer</p>
+                    <a href="https://github.com/IvyFan19" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/xinwei-fan/" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:xfan4@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="/static/images/about/katthak_shah_image.jpeg" style= "object-fit: contain; width: 180px; height: 180px;"
+                        alt="katthak_shah">
+                <div class="container">
+			              <h4 center><a href="/profile/katthak">Katthak Shah</a></h4>
+                    <p class="title">Full Stack Developer &amp; Github Master</p>
+                    <a target="_blank" href="https://github.com/KatthakS" id="share-git" class="sharer button"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a target="_blank" href="https://www.linkedin.com/in/katthakshah" id="share-li" class="sharer button"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="mailto:kshah6@mail.sfsu.edu" id="share-em" class="sharer button"><i class="fa fa fa-envelope-square" aria-hidden="true"></i></a>
+                    <!-- <a href="#" id="share-fb" class="sharer button"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" id="share-tw" class="sharer button"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" id="share-gp" class="sharer button"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#" id="share-ins" class="sharer button"><i class="fa fa-instagram" aria-hidden="true"></i></a> -->
+                </div>
+            </div>
+
+
+    </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+{% endblock %}
+{% block script %}
+    <script type="application/javascript">
+        window.app = new Vue({
+        el: "#app",
+        delimiters: ['[[', ']]'],
+
+        });
+    </script>
+{% endblock %}
+
+</body>
+</html>

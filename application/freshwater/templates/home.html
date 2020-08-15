@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <title>SF State of Code</title>
+
+  <!-- Required Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+
+  <!-- Required scripts -->
+  <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+  <script src="https://unpkg.com/vue-router"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174684984-1"></script>
+  <script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-174684984-1');
+</script>
+
+  <style>
+    .col-md {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+    .container1 {
+      background-image: url("/static/images/gator_move_in.jpg");
+      /* Full height */
+      height: auto;
+      max-width: 100%;
+
+      /* Center and scale the image nicely */
+      /*background-position: center; */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+</head>
+
+{% extends 'navbar.html' %}
+{% set active_page = "index" %}
+
+
+<body>
+{% block content %}
+  <!-- Jinja Macros -->
+  {% macro capitalize(text) %}
+    {{ text[0]|upper}}{{text[1:] }}
+  {% endmacro %}
+
+  <div id="app">
+    <!-- Jumbotron Container -->
+    <b-container fluid class="container1">
+      <b-form>
+        <b-row class="text-center p-4">
+          <b-col>
+            <h2 class="text-center font-weight-bold text-white"> Discover a place <br /> nearby SFSU
+              <!-- Test code to see live vue and jinja values DO NOT REMOVE-->
+              <!-- <br>
+              [[housingType_selected]] [[sellOrRent_selected]]
+              [[petsAllowed_selected]] <br> '[[search_string]]' <br>
+              {{saved_options|tojson}} -->
+            </h2>
+          </b-col>
+        </b-row>
+
+	<b-container fluid class="bg-white" style="margin-bottom: 3rem; width: 50%; opacity: 87%; border-radius: 25px;">
+          <b-row class="mb-1 justify-content-md-center">
+            <!-- Search Text Field -->
+            <b-col md="6" align-self="center" style=" padding-left: 15px !important; padding-right: 5px !important;">
+              <b-form-input class="text-center" name="search_string"  maxlength="40" list="input-list" id="input-with-list" placeholder="What are you looking for?"
+              v-model="search_string"></b-form-input>
+	      <b-tooltip target="input-with-list" placement="left" triggers="hover" variant="primary"> Max. 40 Characters allowed! </b-tooltip>
+            </b-col>
+            <!-- Search Button -->
+            <b-col class="col-md-auto"  align-self="center" style=" padding-left: 5px !important; padding-right: 15px !important;">
+              <div style="display:flex; justify-content:center">
+                <b-button class="my-2" type="submit" formaction="/query/none" type="submit">
+                  <b-icon icon="search"></b-icon>
+                </b-button>
+              </div>
+            </b-col>
+          </b-row>
+        </b-form-group>
+
+        <!-- Filters button -->
+	<!--
+        <b-row class="mb-1 justify-content-md-center">
+          <b-col class=" col-md-auto" align-self="center">
+            <b-button block v-b-toggle.collapse-1-inner variant="light" size="lg">Filter</b-button>
+          </b-col>
+        </b-row>
+	-->
+        <!-- Filter options -->
+          <b-form-group id="ss" >
+            <b-row class="p-2 mb-1 justify-content-md-center" >
+              <!-- Checkbox button Housing Type -->
+          		<b-col lg="3" style="max-width:9rem;">
+          			<b-dropdown id="dropdown-1" class="my-2 my-sm-2" text="Home Type" variant="outline-primary">
+          				<div class="dropdown-item bg-white text-body">
+          					<b-form-checkbox-group id="checkbox-group-1" v-model="housingType_selected" stacked :options="housingType_options" name="HousingType" > </b-form-checkbox-group>
+          				</div>
+          			</b-dropdown>
+              </b-col>
+          		<b-col md="3" style="max-width:9rem;">
+          			<b-dropdown id="dropdown-1" class="my-2 my-sm-2" text="Rent / Buy" variant="outline-primary">
+          				<div class="dropdown-item bg-white text-body">
+          					<b-form-checkbox-group id="checkbox-group-2" v-model="sellOrRent_selected" stacked :options="sellOrRent_options" name="sellOrRent"></b-form-checkbox-group>
+          				</div>
+          			</b-dropdown>
+              </b-col>
+
+              <b-col md="3" align-self="center" style="max-width:10rem; padding-left: 5px !important; padding-right: 5px !important;">
+                  <b-form-checkbox-group id="checkbox-group-3" class="my-2 my-sm-2" v-model="petsAllowed_selected" :options="petsAllowed_options" buttons button-variant="outline-primary" name="petsAllowed"></b-form-checkbox-group>
+                </b-col>
+
+
+              <b-col class="col-md-auto"  align-self="center" style=" padding-left: 5px !important; padding-right: 15px !important;">
+                <div style="display:flex; justify-content:center">
+                  <b-button class="my-2 my-sm-2" type="submit" formaction="#" type="submit"> Apply Filter
+                  </b-button>
+                </div>
+              </b-col>
+            </b-row>
+	</b-container>
+
+
+        <b-row class="justify-content-end px-3"> </b-row>
+      </b-form>
+    </b-container>
+
+    <!-- Search Results -->
+<b-container fluid>
+    <div class="m-4">
+	<b-row class="mb-1" >
+   <b-col cols="9" class="py-2 text-secondary" align-self="center">
+		{% set count = results_list_of_dicts|length %}
+		{%if count > 0 %}
+		<div class="m-2"> Total Results found {%if saved_options.search_string != ''  %} for {{saved_options.search_string|tojson}} {% endif %}
+			{% if saved_options.HousingType !='' %}
+			{% for housingtypes in saved_options.HousingType %}
+			{%if saved_options.search_string == ''  and loop.index == 1 %} for {% endif %} {{housingtypes}}  {% if (saved_options.HousingType|length ) != loop.index  %} / {% endif %} {% endfor %} {% endif %}
+
+			{% if saved_options.sellOrRent !='' %}
+			{% for sellOrRentType in saved_options.sellOrRent %}
+			to {%if sellOrRentType == "sell" %} Buy {% else %} {{sellOrRentType}} {% endif %} {% if (saved_options.sellOrRent|length ) != loop.index  %} OR {% endif %} {% endfor %} {% endif %}
+			: {{count}}
+			</div>
+		{% else %}
+		<div class="m-2">
+			No Results found!
+		</div>
+		{% endif %}
+    </b-col>
+    <!-- Sort options -->
+    <b-col cols="3" class="py-2">
+      <div class="float-right" style="margin-right: 20px">
+        <b-dropdown id="dropdown-right" right variant="light" text="Sort" size="md">
+          <!-- <b-dropdown-item href="/">Sort: New Listings</b-dropdown-item> -->
+          <b-dropdown-item :href="'/query/lowhigh?search_string='+search_string+options">Sort: Price(Lo-Hi)</b-dropdown-item>
+          <b-dropdown-item :href="'/query/highlow?search_string='+search_string+options">Sort: Price(Hi-Lo)</b-dropdown-item>
+          <b-dropdown-item :href="'/query/distance_from_SFSU?search_string='+search_string+options">Sort: Distance to SFSU</b-dropdown-item>
+          <b-dropdown-item :href="'/query/bedroomNum?search_string='+search_string+options">Sort: Bedrooms</b-dropdown-item>
+          <b-dropdown-item :href="'/query/bathroomNum?search_string='+search_string+options">Sort: Bathrooms</b-dropdown-item>
+          <b-dropdown-item :href="'/query/sqft?search_string='+search_string+options">Sort: Squarefeet</b-dropdown-item>
+        </b-dropdown>
+      </div>
+    </b-col>
+  </b-row>
+
+      <b-row class="mb-1">
+      {% for listing in results_list_of_dicts %}
+        <div class="m-2">
+          <b-col class="col-md-auto">
+            <b-card
+            border-variant="secondary"
+            img-alt="Card image"
+            no-body
+            img-top
+            tag="article"
+            style="max-width: 22rem; height: 23rem; margin: 0.5rem;" header-bg-variant="secondary"
+            header="{{capitalize(listing.houseType)}} for {% if listing.sellOrRent == "rent"%} Rent {% else %} Sale {% endif %}"
+            header-border-variant="secondary" header-class="text-light p-1" align="center"
+            footer-class="h-0  p-0 bottom"
+            >
+
+            <form action="/listing" method="post" role="form">
+                <input type="hidden" name="listing" value="{{listing}}">
+                <b-button style="margin:0; ; padding: 0; border: none" variant="link" type="submit">
+                  <b-card-img src="{{listing.path}}" height ="200rem"></b-card-img>
+                </b-button>
+            </form>
+
+            <b-card-body style="padding:0%">
+              <b-card-text align="left" >
+                <b-container class="m-2">
+                  <b-row>
+                    <b-col sm=8>
+                      <h5><b>${{ listing.price | numberFormat}}{%if listing.sellOrRent == "rent"%}/mo {% endif %}</b></h5>
+                    </b-col>
+
+                    <b-col sm=1>
+                    {% if listing.petsAllowed == 1 %}
+			                <b-badge pill variant="success">Pets OK</b-badge>
+			              {% else %}
+			                <b-badge pill variant="secondary">No Pets</b-badge>
+			              {% endif %}
+                    </b-col>
+                    </b-row>
+                  </b-row>
+                  
+                    <!-- <h5><b>${{ listing.price | numberFormat}}{%if listing.sellOrRent == "rent"%}/mo {% endif %}</b></h5> -->
+                    <b-row>
+                      <b-col sm=1>
+                        <p class="h6 mb-1"><b-icon icon="house-door-fill" variant="dark"></b-icon></p>
+                      </b-col>
+                      <b-col sm=7>
+                        <h6 class="text-bottom">{{listing.bedroomNum}} bd | {{listing.bathroomNum}} ba | {{listing.sqft}} sqft</h6>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col sm=1>
+                        <!-- <p class="h6 mb-1"><b-icon icon="book-fill" variant="dark"></b-icon></p> -->
+                        <p class="h6 mb-1" style='font-size:18px'><i class='fas fa-walking'></i></p>
+                      </b-col>
+                      <b-col sm=7>
+                        <h6>{{listing.distance_from_SFSU}} miles from SFSU</h6>
+                      </b-col>
+                    </b-row>
+
+                    <b-row>
+                      <b-col sm=1>
+                        <p class="h6 mb-0"><b-icon icon="geo-alt" variant="dark"></b-icon></p>
+                      </b-col>
+                      <b-col sm=7>
+                        <h6 style="margin:0 auto">{{listing.street_address}}</h6>
+                      </b-col>
+		   <b-col sm=1 class="float-right">
+			<!-- {% if listing.petsAllowed == 1 %}
+			   <b-badge pill variant="success">Pets OK</b-badge>
+			{% else %}
+			   <b-badge pill variant="secondary">No Pets</b-badge>
+			{% endif %} -->
+		      </b-col>
+                    </b-row>
+                </b-container>
+              </b-card-text>
+            </b-card-body>
+
+            <!-- <b-button variant="success"><b-icon icon="envelope" variant="light"></b-icon> Contact the Landlord</b-button> -->
+            <!-- <template v-slot:footer style="position:absolute; bottom:0; width:100%;">
+              <b-button variant="light" formaction="#" type="submit">
+                <b-icon icon="heart-fill" variant="danger"></b-icon>
+              </b-button>
+
+              <b-button variant="light" formaction="#" type="submit">
+                <b-icon icon="chat-square-dots-fill" variant="primary"></b-icon>
+              </b-button>
+
+              <b-button variant="light" formaction="#" type="submit">
+                <b-icon icon="arrow-up-right-circle-fill" variant="dark"></b-icon>
+              </b-button>
+            </template> -->
+            </b-card>
+          </b-col>
+        </div>
+      {% endfor %}
+    </b-row>
+  </div>
+  <!-- </b-card-group> -->
+
+
+</div>
+</b-container>
+</div> <!-- end app div -->
+
+{% endblock %}
+{% block script %}
+    <script type="application/javascript">
+      //var router = new VueRouter({
+      //  mode: 'history',
+      //  routes: []
+      //});
+      window.app = new Vue({
+        //router,
+        el: "#app",
+        delimiters: ['[[', ']]'],
+        data: {
+          //name: "",
+          //this.$route.query.sellOrRent
+          search_string: {{ saved_options.search_string|tojson }},
+          sellOrRent_selected: {{ saved_options.sellOrRent|tojson}},
+          sellOrRent_options: [{
+              text: 'Rent',
+              value: 'rent'
+            },
+            {
+              text: 'Buy',
+              value: 'sell'
+            },
+          ],
+          petsAllowed_selected: {{ saved_options.petsAllowed|tojson}},
+          petsAllowed_options: [{
+              text: 'Pets Allowed',
+              value: 1
+            },
+          ],
+          housingType_selected: {{ saved_options.HousingType|tojson}},
+          housingType_options: [{
+              value: "House",
+              text: "House",
+            },
+            {
+              value: "Apartment",
+              text: "Apartment",
+            },
+            {
+              value: "Room",
+              text: "Room",
+            },
+          ],
+        },
+        computed:{
+          options(){
+            let options_string = ''
+
+            console.log(this.petsAllowed_selected)
+            this.petsAllowed_selected.forEach((element)=>{
+              options_string += '&petsAllowed='+element
+            })
+            console.log(this.housingType_selected)
+            this.housingType_selected.forEach((element)=>{
+              options_string += '&HousingType='+element
+            })
+            console.log(this.sellOrRent_selected)
+            this.sellOrRent_selected.forEach((element)=>{
+              options_string += '&sellOrRent='+element
+            })
+            return options_string
+          }
+        },
+        //methods: {},
+        /*created: function() {
+        /  q = this.$route.query
+          console.log(q)
+          housingType_selected = this.$route.query.housingType
+          sellOrRent_selected = this.$route.query.sellOrRent
+          petsAllowed_selected = this.$route.query.petsAllowed
+          console.log(this.$route.query.sellOrRent)
+          name = this.$route.query.name
+          console.log(name)
+          p = this.$route.query.params
+          console.log("params=" + p)
+          //let housingType =  {{housingType|safe}}
+        },
+        */
+      });
+    </script>
+{% endblock %}
+</body>
+
+</html>
