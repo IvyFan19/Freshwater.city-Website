@@ -1,12 +1,11 @@
 # Freshwater.city - Real Estate - Browse | Buy | Rent | Sell
-Course: CSc848 - Software Development
 
 Date: 2020/06/01 - 2020/08/07
 
 Final Version: https://freshwater.city/
 
 ## Goal
-Create a start-up comprising of a team of 7 students to develop a web-based service for allowing SFSU students and faculty to buy, sell and rent the local housing close to SFSU. 
+Create a start-up comprising of a team of 7 to develop a web-based service for allowing SFSU students and faculty to buy, sell and rent the local housing close to SFSU. 
 ## Requirements
 This site is to be set such that anybody can post housing for sale or rent (houses, apartments) but actual renting and buying can only be done by SFSU students and faculty. 
 
